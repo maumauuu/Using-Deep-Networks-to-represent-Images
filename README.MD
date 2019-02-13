@@ -19,6 +19,29 @@ Pour adapter l'interface web a une utilisation local, il est nécessaire de plac
 et le dossier **mini_data** (contenant le dataset sur lequel tester) sous le dossier
 **app/static**.
 
+Il est nécessaire d'ajouter le fichier [VGG16][5] sous app/pyimagesearch/data/
+
+This code is a re-implementation of RMAC for Keras. 
+
+If using this code, please cite the paper where the re-implementation is used and the original RMAC paper:
+
+```
+@article{garcia2018asymmetric,
+   author    = {Noa Garcia and George Vogiatzis},
+   title     = {Asymmetric Spatio-Temporal Embeddings for Large-Scale Image-to-Video Retrieval},
+   booktitle = {Proceedings of the British Machine Vision Conference},
+   year      = {2018},
+}
+``` 
+```
+@article{tolias2016particular,
+   author    = {Tolias, Giorgos and Sicre, Ronan and J{\'e}gou, Herv{\'e}},
+   title     = {Particular object retrieval with integral max-pooling of CNN activations},
+   booktitle = {Proceedings of the International Conference on Learning Representations},
+   year      = {2016},
+}
+``` 
+
 
 ## Conditions de tests
 La construction d'un index, pour plus de 800 images
@@ -31,6 +54,12 @@ C'est un résultat assez similaire auw Bag Of Word.
 ### Calcul de la matrice
 
 ![Screenshot](img/vgg16.png)
+
+On utilise l'algorithme RMAC pour calculer nos features.
+
+
+
+![Screenshot](img/describe2.png)
 
 
 ### Construction de l'index
@@ -61,15 +90,14 @@ Pour lancer le calcul de l'index :
 
 Pour rechercher une image, on commence par calculer sa matrice.
 
-![Screenshot](img/describe2.png)
+![Screenshot](img/app.png)
 
 
-
-Ensuite, pour trouver les images intéressantes, on calcul
-la matrice de l'image, puis on parcour l'index en calculant
+Ensuite, pour trouver les images intéressantes, on parcour l'index en calculant
  la distance entre les matrices de l'index et celle de l'image.
 
 On utilise donc cosine_similarity de scikit-learn.
+
 ![Screenshot](img/matcher.png)
 
 
@@ -93,7 +121,16 @@ Pour lancer l'interface web :
 La recherche en utilisant le deep learning est beacoup plus efficace 
 que les méthodes précédemment employé. Mais elle n'est cependant pas plus rapide.
 
+
+## References
+ - Frederic, P from Shallow to Deep Representation for multimedia database. Lectures 2019.
+ - Tolias, G., Sicre, R., & Jégou, H. Particular object retrieval with integral max-pooling of CNN activations. ICLR 2016.
+ - Gordo, A., Almazán, J., Revaud, J., & Larlus, D. Deep image retrieval: Learning global representations for image search. ECCV 2016.
+
+
+
 [1]: https://www.python.org/download/releases/2.7/
 [2]: https://keras.io/
 [3]: https://www.tensorflow.org/install
 [4]: https://pypi.org/project/Flask/0.8/
+[5]: https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_th_dim_ordering_th_kernels.h5
